@@ -21,13 +21,13 @@ def get_and_prep_func() -> pd.DataFrame:
     data['flux_log'] = np.log(1 + np.abs(data['flux_64  '].astype('float')))
     data['fluence_log'] = np.log(1e-6 + np.abs(data['fluence  '].astype('float')))
     
-    # standartizing data
+    # scaling data
     x = np.array([data[i] for i in ['t90_start','lii     ','bii     ','fluence_log','flux_log','flux_64_time','sin(lii)', 'cos(lii)', 'sin(bii)', 'cos(bii)']]).astype('float')
     for i in range(len(x)):
         x[i] = (x[i] - x[i].mean())/x[i].std()
     x = x.transpose()
     
-    # uncorrelating data
+    # decorrelating data
     X = pd.DataFrame(x, columns = ['t90_start','lii','bii','fluence','flux_64','flux_64_time','sin(lii)', 'cos(lii)', 'sin(bii)', 'cos(bii)'])
     Xcov = X.cov()
     eig_values, U = np.linalg.eigh(Xcov)
