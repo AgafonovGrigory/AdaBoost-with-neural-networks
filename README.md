@@ -13,9 +13,13 @@ Suppose we have a data set $\\{(x_1, y_1) \ldots (x_N, y_N)\\}$ where each item 
 H_{m-1}(x_i) = \alpha_1h_1(x_i) + \cdots + \alpha_{m-1}h_{m-1}(x_i)
 \end{equation}
 ```
-where the class will be the sign of $H_{(m-1)}(x_i)$. At the $m$-th iteration we want to extend this to a better boosted classifier by adding another weak classifier $h_m$, with another weight $\alpha_m$:
+where the class will be the sign of $H_{m-1}(x_i)$. At the $m$-th iteration we want to extend this to a better boosted classifier by adding another weak classifier $h_m$, with another weight $\alpha_m$:
 ```math
 \begin{equation}
 H_{m}(x_i) = H_{m-1}(x_i) + \alpha_{m}h_{m}(x_i)
 \end{equation}
 ```
+Algorithm:
+- Initialize $w_1(i)=1/N$ where $i=1\ldots N$
+- For each $t = 1\ldots T$
+  + Find a classifier $h_t$ that minimizes the weighted classification error $h_t = \underset{h_j\in \mathcal{H}}{\mathrm{argmin}}(N_j)$ where $N_j = \sum_{i} w_{t}(i)[y_i \neq h_{j}(x_{i})]$
