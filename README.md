@@ -29,3 +29,4 @@ Algorithm:
   + Update weights:
     - Compute $M(i) = y_ih_t(x_i)$
     - $w_{t+1}(i) = w_{t}(i)e^{-\alpha_tM(i)}$
+    - Renormalize $w_{t+1}(i)$ such that $\sum_{i}w_{t+1}(i) = 1$
