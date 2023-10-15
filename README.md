@@ -23,3 +23,9 @@ Algorithm:
 - Initialize $w_1(i)=1/N$ where $i=1\ldots N$
 - For each $t = 1\ldots T$
   + Find a classifier $h_t$ that minimizes the weighted classification error $h_t = \underset{h_j\in \mathcal{H}}{\mathrm{argmin}}(N_j)$ where $N_j = \sum_{i} w_{t}(i)[y_i \neq h_{j}(x_{i})]$
+  + Choose $\alpha_t = \frac{1}{2}\text{ln}\left(\frac{1-N_t}{N_t}\right)$
+  + Add to ensemble:
+    - $H_t(x) = H_{t-1}(x) + \alpha_th_t(x)$
+  + Update weights:
+    - Compute $M(i) = y_ih_t(x_i)$
+    - $w_{t+1}(i) = w_{t}(i)e^{-\alpha_tM(i)}$
